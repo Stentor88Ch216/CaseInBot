@@ -1,9 +1,10 @@
 This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
 
 # ChatKinsey
-This app is a chat bot aimed at candidates for strategy consulting firms.
+This app is a chat bot aimed at candidates for strategy consulting firms.  
+It is currently deployed at this address: [chatkinsey.vercel.app](https://chatkinsey.vercel.app).
 
-
+![image](../assets/chatkinsey.png)
 
 ## Getting Started
 
