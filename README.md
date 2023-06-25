@@ -1,9 +1,18 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
-
 # ChatKinsey
+### Description
 This app is a chat bot aimed at candidates for strategy consulting firms.  
 It is currently deployed at this address: [chatkinsey.vercel.app](https://chatkinsey.vercel.app).
 
+### Stack
+* Next.js
+* TypeScript
+* OpenAI API
+* P5.js for the animation
+
+The OpenAI API key used in this project is protected by the SSR features of Next.js and
+
+
+### Screenshot
 ![image](../assets/chatkinsey.png)
 
 ## Getting Started
