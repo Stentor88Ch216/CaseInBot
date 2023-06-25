@@ -1,18 +1,26 @@
 # ChatKinsey
-### Description
+## Description
 This app is a chat bot aimed at candidates for strategy consulting firms.  
 It is currently deployed at this address: [chatkinsey.vercel.app](https://chatkinsey.vercel.app).
 
-### Stack
+## Stack
 * Next.js
 * TypeScript
 * OpenAI API
-* P5.js for the animation
+* P5.js (for animation)
 
-The OpenAI API key used in this project is protected by the SSR features of Next.js and
+## Key features
+### 🔐 Security
+The OpenAI API key used in this project is protected by the new `Edge rundtime` feature of Next.js, allowing to write backend code directly in a Next.js project, and deploy it easily on the edge.  
+
+### ⚡️ Responsiveness
+The text responses coming from the OpenAI API are streamed in real time to reduce delay. This technique was particularly challenging to implement as it is not well documented.
+
+### 🎨 Aesthetic
+The background animation reacts to the user input, it uses trigonometry and replicate an element of the firm's visual language.
 
 
-### Screenshot
+## Screenshot
 ![image](../assets/chatkinsey.png)
 
 ## Getting Started
