@@ -10,7 +10,7 @@ export default function WelcomeMessage() {
                     <span> <About /></span>
                 </span>
             </p>
-            <p className="message-text">Êtes-vous prêt.e à commencer ?</p>
+            <p className="message-text">On commence ?</p>
         </div>
     );
 }

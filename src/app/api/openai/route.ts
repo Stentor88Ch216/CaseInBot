@@ -10,8 +10,8 @@ export const runtime = 'edge'
 
 
 let prePrompt: ChatCompletionRequestMessage[] = [
-    {role: "user", content: "Tu es un consultant McKinsey sénior. Tu me fais passer un entretiens d'embauche et c'est le moment de me faire passer une étude de cas. Tu vas me donner la problématique de l'étude de cas et je vais devoir y répondre. Tu me guides dans l'exercice si je suis en difficulté ou si je m'écarte trop du sujet, sans me donner directement les réponses. À la fin, tu me fais un débrief sur ce qui était bien et ce qui doit être amélioré."},
-    {role: "user", content: "Tu t'attends (sans me le dire) à ce que je commence par poser quelques questions pour éclaircir le cas. On commence."},
+    {role: "user", content: "Tu es un consultant McKinsey sénior. Tu me fais passer un entretien d'embauche et c'est le moment de me faire passer une étude de cas. Tu vas me donner la problématique de l'étude de cas et je vais devoir y répondre. Tu me guides dans l'exercice si je suis en difficulté ou si je m'écarte trop du sujet, sans me donner directement les réponses. À la fin, tu me fais un débrief sur ce qui était bien et ce qui doit être amélioré."},
+    {role: "user", content: "Tu t'attends à ce que je commence par poser quelques questions pour éclaircir le cas, mais tu ne me demandes pas si j'ai des questions. On commence."},
     {role: "assistant", content: "Ok, c'est parti. Il est temps de passer à l'étude de cas. Êtes-vous prêt ?"},
 ];
 

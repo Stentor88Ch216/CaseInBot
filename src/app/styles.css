@@ -20,6 +20,15 @@ h1 {
     line-height: 180%;
 }
 
+.bubble-and-avatar {
+    display: flex;
+    align-items: flex-end;
+}
+
+.bubble-and-avatar.user {
+    flex-direction: row-reverse;
+}
+
 .bubble {
     border-radius: 10px;
     padding: 30px;
@@ -35,11 +44,13 @@ h1 {
 #assistant {
     color: rgb(2, 23, 44);
     background-color: rgb(244, 250, 255);
+    align-items: flex-start;
 }
 
 #user {
     color: white;
     background-color: rgb(0, 128, 255);
+    align-self: flex-end;
 }
 
 
@@ -66,6 +77,12 @@ h1 {
     height: 50px;
 }
 
+.avatar {
+    object-fit: contain;
+    height: 30px;
+    margin: 10px;
+}
+
 .textfield {
     border: none;
     outline: none;
@@ -85,6 +102,8 @@ h1 {
     padding: 10px;
     border: none;
     border-radius: 7px;
+    height: 20px;
+    width: 20px;
 }
 
 .send-button:hover {
@@ -100,18 +119,11 @@ h1 {
 
 .prompt {
     display: flex;
-    justify-content: center;
+    align-items: center;
     padding: 10px;
-    /*margin: 30px;*/
-    /*margin-bottom: 30px;*/
     box-sizing: border-box;
-    /*max-width: 800px;*/
     border-radius: 10px;
-    /*rgb(19, 64, 231);*/
-    /*border: 1px solid rgb(212, 215, 231);*/
-    background: #ffffff;
     box-shadow: 0px 0px 10px rgba(9, 17, 62, 0.107);
-    /*align-self: center;*/
     flex-grow: 1;
 }
 
