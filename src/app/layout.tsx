@@ -1,9 +1,5 @@
-import Lines from "./lines"
-import logo from "./images/ChatKinseyLogoHD.png"
-import Image from "next/image"
-
 export const metadata = {
-  title: 'ChatKinsey',
+  title: 'Case in Bot',
   description: 'A case study training AI',
 }
 

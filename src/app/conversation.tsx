@@ -1,80 +1,101 @@
-
-/**
-'use client';
+"use client";
 import { useState, useRef, useEffect } from "react";
 import { ChatCompletionRequestMessage } from "openai";
-import { experimental_useOptimistic as useOptimistic } from "react";
-import { sendPrompts } from "./OpenaiFunctions";
 import WelcomeMessage from "./WelcomeMessage";
 import PromptForm from "./PromptForm";
 import Bubble from "./Bubble";
-import Image from "next/image";
-import logo from "./images/ChatKinseyLogoHD.png";
-
-import TestPage from "./TestPage";
-import TestPage2 from "./TestPage2";
 
 
 let initialConversation: ChatCompletionRequestMessage[] = [];
 
 
-interface ConversationProps{
-    playAnimation: boolean;
-    setPlayAnimation: (value: boolean) => void;
-}
 
 export default function Conversation() {
 
     const [conversation, setConversation] = useState(initialConversation);
-    function optimisticFunction(state: ChatCompletionRequestMessage[], newMessage: ChatCompletionRequestMessage) {
-        return ([...state, newMessage]);
-    }
-    const [optimisticMessages, addOptimisticMessage] = useOptimistic(conversation, optimisticFunction);
+    const [textField, setTextField] = useState("");
+    const [gptText, setGptText] = useState("");
 
-    const formRef = useRef<HTMLFormElement>(null);
+    async function generateGpt() {
+        setGptText("");
+
+        const response = await fetch("/api/openai", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          
+          body: JSON.stringify({
+            "prompt": conversation,
+          }),
+        })
     
-    // Scroll to bottom when new message
+        if (!response.ok) {
+            console.log("❌ Error : "+response.statusText);
+            throw new Error(response.statusText);
+        }
+    
+        const data = response.body;
+        if (!data) {
+          return;
+        }
+        const reader = data.getReader();
+        const decoder = new TextDecoder();
+        let done = false;
+    
+        while (!done) {
+          const { value, done: doneReading } = await reader.read();
+          done = doneReading;
+          const chunkValue = decoder.decode(value);
+          setGptText((prev) => prev + chunkValue);
+        }
+    };
+
+
     const messagesEndRef = useRef<HTMLDivElement>(null);
     useEffect(() => {
-        //props.setPlayAnimation(true);
         messagesEndRef.current?.scrollTo({
             top: messagesEndRef.current?.scrollHeight,
             behavior: "smooth",
-          });
-    }, [optimisticMessages]);
+        });
+        if (conversation.length > 0 && conversation[conversation.length - 1].role === "user") {
+            generateGpt();
+        }
+    }, [conversation]);
 
     
-    async function sendMessage(formData: FormData) {
-        const userMessage = formData.get("textfield")?.toString();
-        formRef.current?.reset(); // Delete textfield content
-        if (userMessage) {
-            // TODO : put user message when onCLick button instead
-            addOptimisticMessage({role: "user", content: userMessage});
-            const newUserMessage: ChatCompletionRequestMessage = {role: "user", content: userMessage};
+    async function sendMessage() {
+        if (textField !== "" && textField !== undefined) {
+            const newUserMessage: ChatCompletionRequestMessage = {role: "user", content: textField};
             setConversation(prev => [...prev, newUserMessage]);
-
-            addOptimisticMessage({role: "assistant", content: "Chargement de la réponse..."});
-            const response = await sendPrompts([...conversation, newUserMessage]);
-            const newGptMessage: ChatCompletionRequestMessage = {role: "assistant", content: response};
-            setConversation(prev => [...prev, newGptMessage]);
         }
     }
+
+    useEffect(() => {
+        if (conversation.length > 0 && conversation[conversation.length - 1].role === "assistant") {
+          setConversation(prev => {
+            let newConv = [...prev];
+            newConv[newConv.length - 1].content = gptText;
+            return newConv;
+          });
+        } else if (gptText !== "") {
+          const newGPTMessage: ChatCompletionRequestMessage = {role: "assistant", content: gptText};
+          setConversation(prev => [...prev, newGPTMessage]);
+        }
+      }, [gptText]);
     
 
     return (
         <div className="chat-container">
             <div className="conversation" ref={messagesEndRef}>
-                <Image src={logo} alt="logo" className="welcome-logo"></Image>
+                <img className="big-robot" src="https://cdn.shopify.com/s/files/1/1061/1924/products/Robot_Emoji_Icon_abe1111a-1293-4668-bdf9-9ceb05cff58e_1024x1024.png?v=1571606090"/>
+                <h1>Case in Bot</h1>
                 <WelcomeMessage/>
-                {optimisticMessages.map((m, i) => <Bubble message={m} index={i} key={i.toString()+m.content[0]}/>)}
-
-                <TestPage/>
-                <TestPage2/>
-
+                {conversation.map((m, i) => <Bubble message={m} index={i} key={i.toString()+m.content[0]}/>)}
             </div>
-            <PromptForm action={sendMessage} formRef={formRef}/>
+
+            <PromptForm submitAction={sendMessage} textField={textField} setTextField={setTextField}/>
+
         </div>
     );
 }
-
-*/

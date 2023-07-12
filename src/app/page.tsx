@@ -1,9 +1,9 @@
 import "./styles.css"
-import MyPage from "./MyPage";
+import Conversation2 from "./Conversation";
 
 export default async function Home() {
 
   return (
-    <MyPage/>
+    <Conversation2/>
   );
 }

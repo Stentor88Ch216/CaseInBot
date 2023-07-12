@@ -8,9 +8,7 @@ interface BubbleProps {
 export default function Bubble(props: BubbleProps){
     return (
         <div className="bubble" id={props.message.role} key={props.index.toString()+props.message.content[0]}>
-
             <p className="message-text">{props.message.content}</p>
-
         </div>
     );
 }
